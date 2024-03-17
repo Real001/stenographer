@@ -14,6 +14,7 @@
     "@quark-uilib/components": "^1.13.1",
     "@quark-uilib/icons": "^1.2.1",
     "@quark-uilib/table": "^1.0.6",
+    "@react-pdf/renderer": "^3.4.0",
     "axios": "1.6.2",
     "axios-cache-interceptor": "1.5.1",
     "date-fns": "^3.3.1",

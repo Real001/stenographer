@@ -39,7 +39,11 @@ class Api {
   }
 
   public async getFileResult(id: string, doc_type: string): TResponse<string> {
-    return this.api.get(`/api/docx/?id=${id}&doc_type=${doc_type}`);
+    return this.api.get(
+      `/api/docx/?id=${id}&doc_type=${doc_type}`,
+      {},
+      { responseType: "blob" }
+    );
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Button,
@@ -8,7 +8,9 @@ import {
   Preloader,
   ModalWindow,
   Input,
-  Form
+  Form,
+  Dropdown,
+  IDropdownItem
 } from "@quark-uilib/components";
 import {
   IconImport,
@@ -28,6 +30,22 @@ const ButtonsActionBlock: FC<IButtonsActionBlockProps> = ({ name }) => {
   const params = useParams<{ id: string }>();
   const form = Form.useForm<{ email: string }>();
 
+  const { handleDownload, isDownload } = useDownloadFile(
+    "111",
+    "docx",
+    params.id as string
+  );
+
+  const dropdownItems = useMemo<IDropdownItem[]>(
+    () => [
+      {
+        label: "Скачать docx",
+        onClick: handleDownload
+      }
+    ],
+    []
+  );
+
   const handlerDeleteDoc = (): void => {
     api
       .deleteEvent(params.id as string)
@@ -41,8 +59,6 @@ const ButtonsActionBlock: FC<IButtonsActionBlockProps> = ({ name }) => {
       });
   };
 
-  const { handleDownload, isDownload } = useDownloadFile("");
-
   const handleOpenEmailModal = (): void => {
     setModalEmail(true);
   };
@@ -55,6 +71,7 @@ const ButtonsActionBlock: FC<IButtonsActionBlockProps> = ({ name }) => {
     api
       .getEmail(params.id as string, email)
       .then(() => {
+        setModalEmail(false);
         openSnackBar({ message: "Результат отправлен на вашу почту" });
       })
       .catch(() => {
@@ -68,10 +85,12 @@ const ButtonsActionBlock: FC<IButtonsActionBlockProps> = ({ name }) => {
   return (
     <>
       <ButtonsActionBlockWrapper>
-        <Tooltip text="Скачать docx" direction="topRight">
-          <Button viewType="icon" size="m" onClick={handleDownload}>
-            {isDownload ? <Preloader /> : <IconImport />}
-          </Button>
+        <Tooltip text="Скачать результат" direction="topRight">
+          <Dropdown items={dropdownItems}>
+            <Button viewType="icon" size="m">
+              {isDownload ? <Preloader /> : <IconImport />}
+            </Button>
+          </Dropdown>
         </Tooltip>
         <Divider direction="column" />
         <Tooltip text="Отправить результат на почту" direction="topRight">

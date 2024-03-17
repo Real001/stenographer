@@ -13,8 +13,11 @@ export class ApiService {
     });
   }
 
-  readonly get = <T, P = TApiParams>(path: string, params?: P): TResponse<T> =>
-    this.axios.get<T>(path, { params });
+  readonly get = <T, P = TApiParams>(
+    path: string,
+    params?: P,
+    config?: AxiosRequestConfig
+  ): TResponse<T> => this.axios.get<T>(path, { ...config, params });
 
   readonly post = <T, D>(
     path: string,
