@@ -87,7 +87,7 @@ const EventPage: React.FC = () => {
               {tab === 0 && (
                 <TabPanelStyled>
                   <RetellingStyled type="corvus">
-                    {event.result.shot}
+                    {event.result.short}
                   </RetellingStyled>
                 </TabPanelStyled>
               )}
@@ -99,11 +99,15 @@ const EventPage: React.FC = () => {
               {tab === 2 && (
                 <TabPanelStyled>
                   <div className="tasks">
-                    {event.result.task.map((task) => (
-                      <P2 type="corvus" key={task}>
-                        {task}
-                      </P2>
-                    ))}
+                    {event.result.task.length ? (
+                      event.result.task.map((task) => (
+                        <P2 type="corvus" key={task}>
+                          {task}
+                        </P2>
+                      ))
+                    ) : (
+                      <P2 type="corvus">Поручений не найдено</P2>
+                    )}
                   </div>
                 </TabPanelStyled>
               )}

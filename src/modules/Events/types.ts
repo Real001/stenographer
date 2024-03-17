@@ -20,6 +20,6 @@ export interface IMessage {
 export interface IResult {
   full: IMessage[];
   speakers: string[];
-  shot: string;
+  short: string;
   task: string[];
 }
