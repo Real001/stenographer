@@ -1,0 +1,5 @@
+/src/vendor/*
+/configs
+/babel.config.js
+/lint-staged.config.js
+/server
